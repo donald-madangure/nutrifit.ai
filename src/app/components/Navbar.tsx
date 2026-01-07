@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
-import { DumbbellIcon, HomeIcon, UserIcon, BicepsFlexed } from "lucide-react";
+import { HomeIcon, UserIcon, BicepsFlexed, Phone } from "lucide-react";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -17,7 +17,7 @@ const Navbar = () => {
             <BicepsFlexed className="w-10 h-10 text-lime-500" />
           </div>
           <span className="text-4xl font-bold Geist Mono">
-            Nutri<span className="text-lime-500">Fit</span>Coach.AI
+            Nutri<span className="text-lime-500">Fit</span>
           </span>
         </Link>
 
@@ -30,15 +30,15 @@ const Navbar = () => {
                 className="flex items-center gap-1.5 text-sm hover:text-lime-300 transition-colors"
               >
                 <HomeIcon size={16} />
-                <span>Home</span>
+                <span className="hidden md:inline">Home</span>
               </Link>
 
               <Link
                 href="/generate-program"
                 className="flex items-center gap-1.5 text-sm hover:text-lime-300 transition-colors"
               >
-                <DumbbellIcon size={16} />
-                <span>Generate</span>
+                <Phone size={16} />
+                <span className="hidden md:inline">Generate</span>
               </Link>
 
               <Link
@@ -46,7 +46,7 @@ const Navbar = () => {
                 className="flex items-center gap-1.5 text-sm hover:text-lime-300 transition-colors"
               >
                 <UserIcon size={16} />
-                <span>Profile</span>
+                <span className="hidden md:inline">Profile</span>
               </Link>
               <Button
                 asChild
