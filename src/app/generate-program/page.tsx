@@ -149,52 +149,83 @@ const GenerateProgramPage = () => {
           <p className="text-muted-foreground mt-2">Talk to our coach to build your customized nutrition and wellness programs</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* COACH CARD */}
-          <Card className="bg-card/50 backdrop-blur-md border-lime-500/30 overflow-hidden relative">
-            <div className="aspect-video flex flex-col items-center justify-center p-6">
-              <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-                <div className="flex items-center gap-1 h-32">
-                  {[...Array(12)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-1.5 bg-lime-500 rounded-full transition-all duration-75"
-                      style={{ height: isSpeaking ? `${Math.max(10, volume * 100 * Math.random() + 10)}%` : "4px" }}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <div className={`relative size-32 mb-4 rounded-full p-1 border-2 transition-all duration-500 ${isSpeaking ? "border-lime-500 shadow-[0_0_20px_rgba(132,204,22,0.3)]" : "border-transparent"}`}>
-                <img src="/avata.png" alt="Coach" className="size-full object-cover rounded-full bg-muted" />
-              </div>
-              <h2 className="text-xl font-bold">NutriFit Coach</h2>
-              <p className="text-sm text-muted-foreground">AI Expert Assistant</p>
-              
-              <div className="mt-4 flex items-center gap-2 px-3 py-1 rounded-full bg-background/50 border border-lime-500/20">
-                <div className={`size-2 rounded-full ${isSpeaking ? "bg-lime-500 animate-pulse" : "bg-muted"}`} />
-                <span className="text-[10px] uppercase font-medium tracking-widest text-muted-foreground">
-                  {isSpeaking ? "Speaking" : callActive ? "Listening" : "Standby"}
-                </span>
-              </div>
-            </div>
-          </Card>
-
-          {/* USER CARD */}
-          <Card className="bg-card/50 backdrop-blur-md border-border overflow-hidden relative">
-            <div className="aspect-video flex flex-col items-center justify-center p-6">
-              <div className="size-32 mb-4 rounded-full overflow-hidden border-2 border-border">
-                <img src={user?.imageUrl} alt="User" className="size-full object-cover" />
-              </div>
-              <h2 className="text-xl font-bold">{user?.fullName || "Guest"}</h2>
-              <p className="text-sm text-muted-foreground">Elite Achiever</p>
-              <div className="mt-4 px-3 py-1 rounded-full bg-background/50 border border-border text-[10px] uppercase tracking-widest text-muted-foreground">
-                Ready
-              </div>
-            </div>
-          </Card>
+        
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
+  {/* COACH CARD */}
+  <Card className="bg-card/50 backdrop-blur-md border-lime-500/30 overflow-hidden relative">
+    <div className="aspect-video flex flex-col items-center justify-center p-4 md:p-6">
+      {/* Visualizer Overlay */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+        <div className="flex items-center gap-1 h-20 md:h-32">
+          {[...Array(12)].map((_, i) => (
+            <div
+              key={i}
+              className="w-1 md:w-1.5 bg-lime-500 rounded-full transition-all duration-75"
+              style={{
+                height: isSpeaking
+                  ? `${Math.max(10, volume * 100 * Math.random() + 10)}%`
+                  : "4px",
+              }}
+            />
+          ))}
         </div>
+      </div>
 
+      {/* Coach Avatar - Responsive Size */}
+      <div
+        className={`relative size-24 md:size-32 mb-3 md:mb-4 rounded-full p-1 border-2 transition-all duration-500 ${
+          isSpeaking
+            ? "border-lime-500 shadow-[0_0_20px_rgba(132,204,22,0.3)]"
+            : "border-transparent"
+        }`}
+      >
+        <img
+          src="/avata.png"
+          alt="Coach"
+          className="size-full object-cover rounded-full bg-muted"
+        />
+      </div>
+
+      {/* Coach Info */}
+      <h2 className="text-lg md:text-xl font-bold">NutriFit Coach</h2>
+      <p className="text-xs md:text-sm text-muted-foreground">
+        AI Expert Assistant
+      </p>
+
+      {/* Live Status Badge */}
+      <div className="mt-3 md:mt-4 flex items-center gap-2 px-3 py-1 rounded-full bg-background/50 border border-lime-500/20">
+        <div
+          className={`size-1.5 md:size-2 rounded-full ${
+            isSpeaking ? "bg-lime-500 animate-pulse" : "bg-muted"
+          }`}
+        />
+        <span className="text-[9px] md:text-[10px] uppercase font-medium tracking-widest text-muted-foreground">
+          {isSpeaking ? "Speaking" : callActive ? "Listening" : "Standby"}
+        </span>
+      </div>
+    </div>
+  </Card>
+
+  {/* USER CARD - Hidden on mobile, visible on medium screens and up */}
+  <Card className="hidden md:block bg-card/50 backdrop-blur-md border-border overflow-hidden relative">
+    <div className="aspect-video flex flex-col items-center justify-center p-6">
+      <div className="size-32 mb-4 rounded-full overflow-hidden border-2 border-border">
+        <img
+          src={user?.imageUrl}
+          alt="User"
+          className="size-full object-cover"
+        />
+      </div>
+      <h2 className="text-xl font-bold truncate max-w-full px-4">
+        {user?.fullName || "Guest"}
+      </h2>
+      <p className="text-sm text-muted-foreground">Elite Achiever</p>
+      <div className="mt-4 px-3 py-1 rounded-full bg-background/50 border border-border text-[10px] uppercase tracking-widest text-muted-foreground">
+        Ready
+      </div>
+    </div>
+  </Card>
+</div>
         {/* TRANSCRIPT AREA */}
         {messages.length > 0 && (
           <div ref={messageContainerRef} className="w-full bg-card/30 backdrop-blur-xl border border-lime-500/20 rounded-2xl p-6 mb-8 h-80 overflow-y-auto custom-scrollbar">
@@ -214,15 +245,37 @@ const GenerateProgramPage = () => {
         )}
 
         <div className="flex justify-center">
-          <Button
-            onClick={toggleCall}
-            disabled={connecting || callEnded || !isLoaded}
-            className={`h-16 px-12 rounded-full text-lg font-bold transition-all duration-300 ${
-              callActive ? "bg-red-300 hover:bg-red-800 shadow-lg shadow-red-500/20" : "bg-lime-500 hover:bg-lime-600 text-black shadow-lg shadow-lime-500/20"
-            }`}
-          >
-            {connecting ? "CONNECTING..." : callActive ? "END CALL" : callEnded ? "REDIRECTING..." : "START CALL"}
-          </Button>
+         {/* Sticky Footer for Mobile */}
+<div className="sticky bottom-6 flex justify-center w-full mt-auto pt-4 md:relative md:bottom-0">
+  <Button
+    onClick={toggleCall}
+    disabled={connecting || callEnded || !isLoaded}
+    className={`
+      h-14 md:h-16 
+      w-[90%] md:w-auto 
+      rounded-full text-base md:text-lg font-bold 
+      transition-all duration-300 
+      active:scale-95 
+      ${callActive 
+        ? "bg-red-600 hover:bg-red-700 text-white shadow-[0_0_20px_rgba(220,38,38,0.3)]" 
+        : "bg-lime-500 hover:bg-lime-600 text-black shadow-[0_0_20px_rgba(132,204,22,0.3)]"
+      }
+    `}
+  >
+    {connecting ? (
+      <div className="flex items-center gap-2">
+        <div className="size-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+        <span>CONNECTING...</span>
+      </div>
+    ) : callActive ? (
+      "END CALL"
+    ) : callEnded ? (
+      "REDIRECTING..."
+    ) : (
+      "START CALL"
+    )}
+  </Button>
+</div>
         </div>
       </div>
     </div>

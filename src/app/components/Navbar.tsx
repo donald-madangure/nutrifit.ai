@@ -51,7 +51,7 @@ const Navbar = () => {
               <Button
                 asChild
                 variant="outline"
-                className="ml-2 border-lime-500/50 text-lime-500 hover:text-white hover:bg-lime-500/10"
+                className="hidden md:flex ml-2 border-lime-500/50 text-lime-500 hover:text-white hover:bg-lime-500/10"
               >
                 <Link href="/generate-program">Get Started</Link>
               </Button>
